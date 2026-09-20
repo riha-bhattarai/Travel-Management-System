@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Bookings - PS Travel Point Tours</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7f6;
+            color: #263b39;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 245px;
+            height: 100vh;
+            background: #173c3a;
+            color: white;
+            padding: 25px 18px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 13px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #285b56;
+        }
+
+        /* MAIN */
+        .main {
+            margin-left: 245px;
+            padding: 35px;
+        }
+
+        .top-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .top-section h1 {
+            font-size: 30px;
+            color: #173c3a;
+        }
+
+        .welcome {
+            color: #6b7d7a;
+            margin-top: 6px;
+        }
+
+        /* MESSAGE */
+        .message {
+            padding: 14px 18px;
+            border-radius: 8px;
+            background: #dff4e8;
+            color: #17633d;
+            margin-bottom: 20px;
+        }
+
+        /* BOOKING CARD */
+        .booking-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        }
+
+        .booking-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e6eceb;
+            padding-bottom: 18px;
+            margin-bottom: 20px;
+        }
+
+        .package-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .package-icon {
+            width: 48px;
+            height: 48px;
+            background: #e5f2ef;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+        }
+
+        .package-title h2 {
+            font-size: 21px;
+            color: #173c3a;
+        }
+
+        .destination {
+            color: #70817e;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        /* STATUS */
+        .status {
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .confirmed {
+            background: #dff4e8;
+            color: #17633d;
+        }
+
+        /* DETAILS GRID */
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .detail-box {
+            background: #f7f9f9;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .detail-box span {
+            display: block;
+            font-size: 12px;
+            color: #7a8987;
+            margin-bottom: 6px;
+        }
+
+        .detail-box strong {
+            font-size: 14px;
+            color: #263b39;
+        }
+
+        /* SECTION */
+        .section-title {
+            font-size: 16px;
+            color: #173c3a;
+            margin: 20px 0 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e6eceb;
+        }
+
+        /* PRICE */
+        .price-box {
+            background: #f7f9f9;
+            border-radius: 10px;
+            padding: 18px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .price-row.total {
+            border-top: 1px solid #dfe7e5;
+            padding-top: 14px;
+            margin-top: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #173c3a;
+        }
+
+        /* PAYMENT */
+        .payment-box {
+            background: #f7f9f9;
+            border-radius: 10px;
+            padding: 18px;
+            margin-top: 15px;
+        }
+
+        .payment-completed {
+            color: #17633d;
+            font-weight: bold;
+            margin-top: 12px;
+        }
+
+        .payment-pending {
+            color: #856404;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        /* BUTTON */
+        .pay-button {
+            display: inline-block;
+            background: #1f6f68;
+            color: white;
+            text-decoration: none;
+            padding: 11px 22px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .pay-button:hover {
+            background: #174f4a;
+        }
+
+        /* EMPTY */
+        .empty {
+            background: white;
+            padding: 50px;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        }
+
+        .empty h2 {
+            color: #173c3a;
+            margin-bottom: 10px;
+        }
+
+        .empty p {
+            color: #71817e;
+            margin-bottom: 20px;
+        }
+
+        .package-button {
+            display: inline-block;
+            background: #1f6f68;
+            color: white;
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            color: #7a8987;
+            font-size: 13px;
+            margin-top: 35px;
+            padding: 20px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 850px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-header {
+                align-items: flex-start;
+                gap: 15px;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <div class="logo">
+        ✈ PS Travel Point Tours
+    </div>
+
+    <a href="{% url 'dashboard' %}">
+        🏠 Dashboard
+    </a>
+
+    <a href="{% url 'packages' %}">
+        🌍 Tour Packages
+    </a>
+
+    <a href="{% url 'my_bookings' %}" class="active">
+        📋 My Bookings
+    </a>
+
+    <a href="{% url 'my_bookings' %}">
+        💳 My Payments
+    </a>
+
+    <a href="{% url 'logout' %}">
+        🚪 Logout
+    </a>
+
+</div>
+
+
+<div class="main">
+
+    <div class="top-section">
+
+        <div>
+            <h1>My Bookings</h1>
+
+            <p class="welcome">
+                Welcome, {{ request.user.username }}!
+            </p>
+        </div>
+
+    </div>
+
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="message">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    {% if bookings %}
+
+        {% for booking in bookings %}
+
+            <div class="booking-card">
+
+
+                <div class="booking-header">
+
+                    <div class="package-title">
+
+                        <div class="package-icon">
+
+                            {% if booking.tour_package.destination == "Pokhara" %}
+                                🌊
+                            {% elif booking.tour_package.destination == "Kathmandu" %}
+                                🛕
+                            {% elif booking.tour_package.destination == "Everest Region" %}
+                                ⛰
+                            {% elif booking.tour_package.destination == "Chitwan" %}
+                                🐘
+                            {% else %}
+                                ✈
+                            {% endif %}
+
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                {{ booking.tour_package.package_name }}
+                            </h2>
+
+                            <div class="destination">
+                                📍 {{ booking.tour_package.destination }}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    {% if booking.status == "Confirmed" %}
+
+                        <span class="status confirmed">
+                            ✓ Confirmed
+                        </span>
+
+                    {% else %}
+
+                        <span class="status pending">
+                            ⏳ Pending
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+                <div class="details-grid">
+
+                    <div class="detail-box">
+
+                        <span>Customer Name</span>
+
+                        <strong>
+                            {{ booking.customer_name }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-box">
+
+                        <span>Email</span>
+
+                        <strong>
+                            {{ booking.customer_email }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-box">
+
+                        <span>Number of People</span>
+
+                        <strong>
+                            {{ booking.number_of_people }} People
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-box">
+
+                        <span>Booking Date</span>
+
+                        <strong>
+                            {{ booking.booking_date|date:"M d, Y" }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-box">
+
+                        <span>Package Duration</span>
+
+                        <strong>
+                            {{ booking.tour_package.duration }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-box">
+
+                        <span>Start Date</span>
+
+                        <strong>
+                            {{ booking.tour_package.start_date|date:"M d, Y" }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TRANSPORTATION -->
+
+                <div class="section-title">
+                    Transportation Details
+                </div>
+
+                <div class="details-grid">
+
+                    <div class="detail-box">
+
+                        <span>Included Transportation</span>
+
+                        <strong>
+                            Tourist Bus
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-box">
+
+                        <span>Transportation Upgrade</span>
+
+                        <strong>
+                            {{ booking.transportation_upgrade }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-box">
+
+                        <span>Extra Price Per Person</span>
+
+                        <strong>
+                            Rs. {{ booking.transportation_price|floatformat:2 }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRICE SUMMARY -->
+
+                <div class="section-title">
+                    Price Summary
+                </div>
+
+                <div class="price-box">
+
+                    <div class="price-row">
+
+                        <span>
+                            Package Price Per Person
+                        </span>
+
+                        <strong>
+                            Rs. {{ booking.tour_package.price|floatformat:2 }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="price-row">
+
+                        <span>
+                            Transportation Extra Per Person
+                        </span>
+
+                        <strong>
+                            Rs. {{ booking.transportation_price|floatformat:2 }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="price-row">
+
+                        <span>
+                            Total Price Per Person
+                        </span>
+
+                        <strong>
+                            Rs.
+                            {{ booking.tour_package.price|add:booking.transportation_price|floatformat:2 }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="price-row">
+
+                        <span>
+                            Number of People
+                        </span>
+
+                        <strong>
+                            {{ booking.number_of_people }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="price-row total">
+
+                        <span>
+                            Total Amount
+                        </span>
+
+                        <strong>
+                            Rs. {{ booking.total_amount|floatformat:2 }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PAYMENT -->
+
+                {% if booking.payment %}
+
+                    <div class="section-title">
+                        Payment Details
+                    </div>
+
+                    <div class="payment-box">
+
+                        <div class="price-row">
+
+                            <span>
+                                Payment Method
+                            </span>
+
+                            <strong>
+                                {{ booking.payment.payment_method }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="price-row">
+
+                            <span>
+                                Payment Amount
+                            </span>
+
+                            <strong>
+                                Rs. {{ booking.payment.amount|floatformat:2 }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="price-row">
+
+                            <span>
+                                Payment Date
+                            </span>
+
+                            <strong>
+                                {{ booking.payment.payment_date|date:"M d, Y" }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="price-row">
+
+                            <span>
+                                Payment Status
+                            </span>
+
+                            <strong>
+                                {{ booking.payment.status }}
+                            </strong>
+
+                        </div>
+
+
+                        {% if booking.payment.status == "Completed" %}
+
+                            <div class="payment-completed">
+                                ✓ Payment Completed
+                            </div>
+
+                        {% else %}
+
+                            <div class="payment-pending">
+                                ⏳ Payment Pending
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                {% else %}
+
+                    <div class="payment-box">
+
+                        <div class="payment-pending">
+                            ⏳ Payment Pending
+                        </div>
+
+                        <a
+                            href="{% url 'payment' booking.id %}"
+                            class="pay-button"
+                        >
+                            💳 Pay Now
+                        </a>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        {% endfor %}
+
+
+    {% else %}
+
+        <div class="empty">
+
+            <h2>No Bookings Yet</h2>
+
+            <p>
+                You have not made any tour bookings yet.
+            </p>
+
+            <a
+                href="{% url 'packages' %}"
+                class="package-button"
+            >
+                View Tour Packages
+            </a>
+
+        </div>
+
+    {% endif %}
+
+
+    <footer>
+        © 2026 PS Travel Point Tours. All Rights Reserved.
+    </footer>
+
+</div>
+
+</body>
+</html>
+

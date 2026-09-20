@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Login - PS Travel Point Tours</title>
+
+<style>
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        min-height: 100vh;
+        background: #173c3a;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login-container {
+        width: 400px;
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .logo {
+        text-align: center;
+        font-size: 40px;
+        margin-bottom: 10px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #173c3a;
+        margin-bottom: 8px;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #777;
+        margin-bottom: 30px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 7px;
+        color: #333;
+        font-weight: bold;
+    }
+
+    input {
+        width: 100%;
+        padding: 13px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 15px;
+    }
+
+    input:focus {
+        outline: none;
+        border-color: #173c3a;
+    }
+
+    button {
+        width: 100%;
+        padding: 13px;
+        background: #173c3a;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #245c58;
+    }
+
+    .message {
+        background: #f8d7da;
+        color: #842029;
+        padding: 10px;
+        border-radius: 7px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .back {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .back a {
+        color: #173c3a;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .admin-note {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 13px;
+        color: #777;
+    }
+
+</style>
+
+
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <div class="logo">
+        🔐
+    </div>
+
+    <h1>
+        Admin Login
+    </h1>
+
+    <p class="subtitle">
+        PS Travel Point Tours
+    </p>
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="message">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <label>
+            Username
+        </label>
+
+        <input
+            type="text"
+            name="username"
+            placeholder="Enter admin username"
+            required
+        >
+
+        <label>
+            Password
+        </label>
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Enter admin password"
+            required
+        >
+
+        <button type="submit">
+            Admin Login
+        </button>
+
+    </form>
+
+    <div class="back">
+
+        <a href="{% url 'login' %}">
+            ← Back to User Login
+        </a>
+
+    </div>
+
+    <div class="admin-note">
+        Authorized administrators only
+    </div>
+
+</div>
+
+</body>
+</html>

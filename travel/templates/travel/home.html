@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PS Travel Point Tours</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f6f8f9;
+            color: #222;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #f5a623;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            color: #f5a623;
+        }
+
+        .login-btn {
+            border: 1px solid white;
+            padding: 9px 18px;
+            border-radius: 6px;
+        }
+
+        .register-btn {
+            background-color: #176f68;
+            padding: 10px 18px;
+            border-radius: 6px;
+        }
+
+
+        /* HERO */
+
+        .hero {
+            min-height: 650px;
+
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.48),
+                    rgba(0, 0, 0, 0.55)
+                ),
+                url("https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1600&q=80");
+
+            background-size: cover;
+            background-position: center;
+
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            width: 86%;
+            max-width: 1200px;
+            margin: auto;
+            color: white;
+            padding-top: 60px;
+        }
+
+        .small-title {
+            display: inline-block;
+            background-color: rgba(255,255,255,0.18);
+            padding: 9px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 58px;
+            max-width: 650px;
+            line-height: 1.05;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #f5a623;
+        }
+
+        .hero p {
+            max-width: 580px;
+            font-size: 17px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+
+        /* SEARCH */
+
+        .search-box {
+            background-color: white;
+            width: 580px;
+            max-width: 100%;
+            padding: 8px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 14px;
+            font-size: 14px;
+        }
+
+        .search-box button {
+            border: none;
+            background-color: #176f68;
+            color: white;
+            padding: 14px 22px;
+            border-radius: 7px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .search-box button:hover {
+            background-color: #10544f;
+        }
+
+
+        /* FEATURES */
+
+        .features {
+            width: 86%;
+            max-width: 1200px;
+            margin: -45px auto 60px;
+            position: relative;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .feature-card {
+            background-color: white;
+            padding: 28px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .feature-icon {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 8px;
+            color: #176f68;
+        }
+
+        .feature-card p {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+
+        /* PACKAGES */
+
+        .packages-section {
+            width: 86%;
+            max-width: 1200px;
+            margin: 0 auto 70px;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-heading h2 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .section-heading p {
+            color: #777;
+        }
+
+        .package-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .package-card {
+            background-color: white;
+            border-radius: 13px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .package-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .package-image {
+            height: 190px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .pokhara {
+            background-image:
+                url("https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=800&q=80");
+        }
+
+        .kathmandu {
+            background-image:
+                url("https://squarehotelktm.com/img/valley/patan_durbar_square.jpg");
+        }
+
+        .chitwan {
+            background-image:
+                url("https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=800&q=80");
+        }
+
+        .everest {
+            background-image:
+                url("https://www.mundo.cz/sites/default/files/images/nepal/nepal-everest-base-camp-vlajecky.jpg");
+        }
+
+        .package-content {
+            padding: 20px;
+        }
+
+        .package-content h3 {
+            margin-bottom: 8px;
+        }
+
+        .destination {
+            color: #176f68;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .package-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #176f68;
+        }
+
+        .view-btn {
+            display: block;
+            text-align: center;
+            background-color: #176f68;
+            color: white;
+            text-decoration: none;
+            padding: 11px;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .view-btn:hover {
+            background-color: #10544f;
+        }
+
+
+        /* WHY CHOOSE US */
+
+        .why-section {
+            background-color: white;
+            padding: 65px 7%;
+            text-align: center;
+        }
+
+        .why-section h2 {
+            font-size: 32px;
+            margin-bottom: 35px;
+        }
+
+        .why-grid {
+            max-width: 1100px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .why-item h3 {
+            color: #176f68;
+            margin: 12px 0 8px;
+        }
+
+        .why-item p {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+
+        /* FOOTER */
+
+        footer {
+            background-color: #173c3a;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        footer h3 {
+            margin-bottom: 8px;
+        }
+
+        footer p {
+            color: #cbd7d6;
+            font-size: 14px;
+        }
+
+
+        /* RESPONSIVE */
+
+        @media (max-width: 850px) {
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .features,
+            .package-grid,
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                margin-top: 25px;
+            }
+
+        }
+
+
+        @media (max-width: 550px) {
+
+            .navbar {
+                padding: 15px 5%;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .nav-links a:nth-child(2),
+            .nav-links a:nth-child(3),
+            .nav-links a:nth-child(4) {
+                display: none;
+            }
+
+            .hero {
+                min-height: 600px;
+            }
+
+            .hero-content {
+                width: 90%;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .search-box {
+                flex-direction: column;
+                background: transparent;
+            }
+
+            .search-box input {
+                width: 100%;
+                border-radius: 7px;
+                margin-bottom: 8px;
+            }
+
+            .search-box button {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            ✈ PS <span>Travel</span> Point Tours
+        </div>
+
+        <div class="nav-links">
+
+            <a href="{% url 'home' %}">
+                Home
+            </a>
+
+            <a href="{% url 'packages' %}">
+                Tour Packages
+            </a>
+
+            <a href="{% url 'login' %}">
+                Login
+            </a>
+
+            <a href="{% url 'register' %}" class="register-btn">
+                Register
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="small-title">
+                ✈ Explore Nepal & Beyond
+            </div>
+
+            <h1>
+                Discover Your
+                <span>Next Adventure</span>
+            </h1>
+
+            <p>
+                Explore beautiful destinations, discover unforgettable
+                tours and create memories that last forever with
+                PS Travel Point Tours.
+            </p>
+
+
+            <form action="{% url 'packages' %}" method="get">
+
+                <div class="search-box">
+
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder="Where do you want to go?"
+                    >
+
+                    <button type="submit">
+                        🔍 Search Tours
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <section class="features">
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📍
+            </div>
+
+            <h3>
+                Amazing Destinations
+            </h3>
+
+            <p>
+                Explore beautiful destinations across Nepal.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🧳
+            </div>
+
+            <h3>
+                Best Tour Packages
+            </h3>
+
+            <p>
+                Choose from carefully planned travel packages.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                💬
+            </div>
+
+            <h3>
+                Easy Booking
+            </h3>
+
+            <p>
+                Book your trip easily and manage everything online.
+            </p>
+
+        </div>
+
+    </section>
+
+    <section class="packages-section">
+
+        <div class="section-heading">
+
+            <h2>
+                Popular Tour Packages
+            </h2>
+
+            <p>
+                Explore our popular destinations and start your journey.
+            </p>
+
+        </div>
+
+
+        <div class="package-grid">
+
+
+            <div class="package-card">
+
+                <div class="package-image pokhara"></div>
+
+                <div class="package-content">
+
+                    <h3>
+                        Pokhara Tour
+                    </h3>
+
+                    <div class="destination">
+                        📍 Pokhara
+                    </div>
+
+                    <div class="package-info">
+
+                        <span>
+                            3 Days 2 Nights
+                        </span>
+
+                        <span class="price">
+                            Rs. 16,000
+                        </span>
+
+                    </div>
+
+                    <a href="{% url 'packages' %}" class="view-btn">
+                        View Package
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="package-card">
+
+                <div class="package-image kathmandu"></div>
+
+                <div class="package-content">
+
+                    <h3>
+                        Kathmandu Tour
+                    </h3>
+
+                    <div class="destination">
+                        📍 Kathmandu
+                    </div>
+
+                    <div class="package-info">
+
+                        <span>
+                            4 Days 3 Nights
+                        </span>
+
+                        <span class="price">
+                            Rs. 10,000
+                        </span>
+
+                    </div>
+
+                    <a href="{% url 'packages' %}" class="view-btn">
+                        View Package
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="package-card">
+
+                <div class="package-image chitwan"></div>
+
+                <div class="package-content">
+
+                    <h3>
+                        Chitwan Tour
+                    </h3>
+
+                    <div class="destination">
+                        📍 Chitwan
+                    </div>
+
+                    <div class="package-info">
+
+                        <span>
+                            2 Days 1 Night
+                        </span>
+
+                        <span class="price">
+                            Rs. 8,000
+                        </span>
+
+                    </div>
+
+                    <a href="{% url 'packages' %}" class="view-btn">
+                        View Package
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="package-card">
+
+                <div class="package-image everest"></div>
+
+                <div class="package-content">
+
+                    <h3>
+                        Everest Base Camp Trek
+                    </h3>
+
+                    <div class="destination">
+                        📍 Everest Region
+                    </div>
+
+                    <div class="package-info">
+
+                        <span>
+                            12 Days 11 Nights
+                        </span>
+
+                        <span class="price">
+                            Rs. 85,000
+                        </span>
+
+                    </div>
+
+                    <a href="{% url 'packages' %}" class="view-btn">
+                        View Package
+                    </a>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <section class="why-section">
+
+        <h2>
+            Why Choose PS Travel Point Tours?
+        </h2>
+
+        <div class="why-grid">
+
+            <div class="why-item">
+
+                <div class="feature-icon">
+                    💰
+                </div>
+
+                <h3>
+                    Affordable Packages
+                </h3>
+
+                <p>
+                    Carefully planned packages at reasonable prices.
+                </p>
+
+            </div>
+
+
+            <div class="why-item">
+
+                <div class="feature-icon">
+                    🚌
+                </div>
+
+                <h3>
+                    Comfortable Travel
+                </h3>
+
+                <p>
+                    Transportation and accommodation options for a comfortable trip.
+                </p>
+
+            </div>
+
+
+            <div class="why-item">
+
+                <div class="feature-icon">
+                    🔒
+                </div>
+
+                <h3>
+                    Easy & Secure Booking
+                </h3>
+
+                <p>
+                    Manage your bookings and payments easily through your account.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+
+        <h3>
+            ✈ PS Travel Point Tours
+        </h3>
+
+        <p>
+            Explore Nepal. Experience the journey. Create memories.
+        </p>
+
+        <!-- CONTACT ADDED -->
+
+        <p style="margin-top: 12px;">
+            📞 <strong>Contact:</strong> 9812345678
+        </p>
+
+        <p style="margin-top: 8px;">
+            📧 <strong>Email:</strong> pstravelpoint@gmail.com
+        </p>
+
+        <p style="margin-top: 8px;">
+            📍 <strong>Location:</strong> Dhangadhi, Kailali, Nepal
+        </p>
+
+        <p style="margin-top: 12px;">
+            © 2026 PS Travel Point Tours. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>
+

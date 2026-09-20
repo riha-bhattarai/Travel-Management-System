@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard - PS Travel Point Tours</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f7;
+            color: #222;
+        }
+
+        /* MAIN LAYOUT */
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 245px;
+            background-color: #173c3a;
+            color: white;
+            padding: 25px 18px;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.4;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .logo span {
+            color: #f5a623;
+        }
+
+
+        /* SIDEBAR MENU */
+
+        .menu {
+            margin-top: 30px;
+        }
+
+        .menu a {
+            display: block;
+            color: #dce8e7;
+            text-decoration: none;
+            padding: 13px 15px;
+            margin-bottom: 7px;
+            border-radius: 7px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .menu a:hover,
+        .menu .active {
+            background-color: #176f68;
+            color: white;
+        }
+
+        .logout {
+            margin-top: 25px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 20px;
+        }
+
+
+        /* CONTENT */
+
+        .content {
+            margin-left: 245px;
+            width: calc(100% - 245px);
+            padding: 35px;
+        }
+
+
+        /* HEADER */
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 30px;
+            margin-bottom: 8px;
+            color: #173c3a;
+        }
+
+        .header p {
+            color: #777;
+            font-size: 15px;
+        }
+
+
+        /* STAT CARDS */
+
+        .cards {
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 23px;
+            border-radius: 12px;
+
+            box-shadow:
+                0 4px 15px
+                rgba(0,0,0,0.06);
+
+            border-left: 5px solid #176f68;
+        }
+
+        .card-icon {
+            font-size: 25px;
+            margin-bottom: 12px;
+        }
+
+        .card h3 {
+            font-size: 28px;
+            color: #173c3a;
+            margin-bottom: 5px;
+        }
+
+        .card p {
+            color: #777;
+            font-size: 14px;
+        }
+
+
+        /* RECENT BOOKINGS */
+
+        .booking-section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+
+            box-shadow:
+                0 4px 15px
+                rgba(0,0,0,0.06);
+        }
+
+        .booking-section h2 {
+            color: #173c3a;
+            font-size: 21px;
+            margin-bottom: 20px;
+        }
+
+
+        /* TABLE */
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #f4f7f7;
+            color: #555;
+            text-align: left;
+            padding: 13px;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 14px 13px;
+            border-bottom: 1px solid #eeeeee;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background-color: #fafcfc;
+        }
+
+
+        /* STATUS */
+
+        .status {
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .confirmed {
+            background-color: #e5f5ee;
+            color: #16845a;
+        }
+
+        .pending {
+            background-color: #fff4df;
+            color: #c17b00;
+        }
+
+
+        /* EMPTY */
+
+        .empty {
+            text-align: center;
+            padding: 30px;
+            color: #888;
+        }
+
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1000px) {
+
+            .cards {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 750px) {
+
+            .sidebar {
+                width: 200px;
+            }
+
+            .content {
+                margin-left: 200px;
+                width: calc(100% - 200px);
+                padding: 25px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 550px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .dashboard {
+                display: block;
+            }
+
+            .content {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+
+            .menu a {
+                display: inline-block;
+                margin-right: 5px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="dashboard">
+
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            ✈ PS Travel<br>
+
+            <span>Point Tours</span>
+
+        </div>
+
+
+        <div class="menu">
+
+            <a href="{% url 'admin_dashboard' %}"
+               class="active">
+
+                📊 Dashboard
+
+            </a>
+
+
+            <a href="/admin/auth/user/">
+
+                👥 Users
+
+            </a>
+
+
+            <a href="/admin/travel/tourpackage/">
+
+                🧳 Packages
+
+            </a>
+
+
+            <a href="/admin/travel/booking/">
+
+                📋 Bookings
+
+            </a>
+
+
+            <a href="/admin/travel/payment/">
+
+                💳 Payments
+
+            </a>
+
+
+            <a href="/admin/">
+
+                📊 Reports
+
+            </a>
+
+
+            <div class="logout">
+
+                <a href="{% url 'logout' %}">
+
+                    🚪 Logout
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <main class="content">
+
+
+        <div class="header">
+
+            <h1>
+                Admin Dashboard
+            </h1>
+
+            <p>
+                Welcome, Administrator 👋
+                Manage your travel system from here.
+            </p>
+
+        </div>
+
+
+        <div class="cards">
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    👥
+                </div>
+
+                <h3>
+                    {{ total_users }}
+                </h3>
+
+                <p>
+                    Registered Users
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🧳
+                </div>
+
+                <h3>
+                    {{ total_packages }}
+                </h3>
+
+                <p>
+                    Tour Packages
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    📋
+                </div>
+
+                <h3>
+                    {{ total_bookings }}
+                </h3>
+
+                <p>
+                    Total Bookings
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-icon">
+                    💳
+                </div>
+
+                <h3>
+                    {{ total_payments }}
+                </h3>
+
+                <p>
+                    Completed Payments
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-icon">
+                    💺
+                </div>
+
+                <h3>
+                    {{ available_seats }}
+                </h3>
+
+                <p>
+                    Available Seats
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="booking-section">
+
+            <h2>
+                Recent Bookings
+            </h2>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Customer
+                            </th>
+
+                            <th>
+                                Package
+                            </th>
+
+                            <th>
+                                People
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                    {% for booking in recent_bookings %}
+
+                        <tr>
+
+                            <td>
+                                {{ booking.customer_name }}
+                            </td>
+
+                            <td>
+                                {{ booking.tour_package.package_name }}
+                            </td>
+
+                            <td>
+                                {{ booking.number_of_people }}
+                            </td>
+
+                            <td>
+                                {{ booking.booking_date|date:"M d, Y" }}
+                            </td>
+
+                            <td>
+
+                                {% if booking.status == "Confirmed" %}
+
+                                    <span class="status confirmed">
+                                        Confirmed
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="status pending">
+                                        {{ booking.status }}
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                    {% empty %}
+
+                        <tr>
+
+                            <td colspan="5"
+                                class="empty">
+
+                                No bookings available yet.
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+</body>
+
+</html>
