@@ -45,11 +45,48 @@ urlpatterns = [
     path('my-bookings/', views.my_bookings, name='my_bookings'),
 
     path('payment/<int:booking_id>/', views.payment, name='payment'),
-  
+
     path('admin-login/', views.admin_login, name='admin_login'),
-    
+
     path('admin-dashboard/', views.admin_dashboard, name='admin_dashboard'),
 
-    
+    path('admin-dashboard/users/', views.admin_users, name='admin_users'),
 
+    path(
+        'admin-dashboard/packages/',
+        views.admin_packages,
+        name='admin_packages'
+    ),
+
+    path(
+        'admin-dashboard/packages/add/',
+        views.admin_add_package,
+        name='admin_add_package'
+    ),
+
+    path(
+        'admin-dashboard/packages/delete/<int:package_id>/',
+        views.admin_delete_package,
+        name='admin_delete_package'
+    ),
+
+    path(
+        'admin-dashboard/bookings/',
+        views.admin_bookings,
+        name='admin_bookings'
+    ),
+
+    path(
+        'admin-dashboard/reports/',
+        views.admin_reports,
+        name='admin_reports'
+    ),
+
+    path(
+        'admin-dashboard/payments/',
+        views.admin_payments,
+        name='admin_payments'
+    ),
+
+    path('my-payments/', views.my_payments, name='my_payments'),
 ]

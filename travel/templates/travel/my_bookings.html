@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>My Bookings - PS Travel Point Tours</title>
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
@@ -20,6 +23,7 @@
         }
 
         /* SIDEBAR */
+
         .sidebar {
             position: fixed;
             left: 0;
@@ -54,6 +58,7 @@
         }
 
         /* MAIN */
+
         .main {
             margin-left: 245px;
             padding: 35px;
@@ -77,6 +82,7 @@
         }
 
         /* MESSAGE */
+
         .message {
             padding: 14px 18px;
             border-radius: 8px;
@@ -86,6 +92,7 @@
         }
 
         /* BOOKING CARD */
+
         .booking-card {
             background: white;
             border-radius: 15px;
@@ -132,6 +139,7 @@
         }
 
         /* STATUS */
+
         .status {
             padding: 8px 14px;
             border-radius: 20px;
@@ -150,6 +158,7 @@
         }
 
         /* DETAILS GRID */
+
         .details-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -176,6 +185,7 @@
         }
 
         /* SECTION */
+
         .section-title {
             font-size: 16px;
             color: #173c3a;
@@ -185,6 +195,7 @@
         }
 
         /* PRICE */
+
         .price-box {
             background: #f7f9f9;
             border-radius: 10px;
@@ -208,6 +219,7 @@
         }
 
         /* PAYMENT */
+
         .payment-box {
             background: #f7f9f9;
             border-radius: 10px;
@@ -228,6 +240,7 @@
         }
 
         /* BUTTON */
+
         .pay-button {
             display: inline-block;
             background: #1f6f68;
@@ -244,6 +257,7 @@
         }
 
         /* EMPTY */
+
         .empty {
             background: white;
             padding: 50px;
@@ -273,6 +287,7 @@
         }
 
         /* FOOTER */
+
         footer {
             text-align: center;
             color: #7a8987;
@@ -282,6 +297,7 @@
         }
 
         /* RESPONSIVE */
+
         @media (max-width: 850px) {
 
             .sidebar {
@@ -304,9 +320,13 @@
                 gap: 15px;
                 flex-direction: column;
             }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
@@ -316,20 +336,24 @@
         ✈ PS Travel Point Tours
     </div>
 
+
     <a href="{% url 'dashboard' %}">
         🏠 Dashboard
     </a>
+
 
     <a href="{% url 'packages' %}">
         🌍 Tour Packages
     </a>
 
+
     <a href="{% url 'my_bookings' %}" class="active">
         📋 My Bookings
     </a>
 
-    <a href="{% url 'my_bookings' %}">
-        💳 My Payments
+
+   <a href="{% url 'my_payments' %}">
+    💳 My Payments
     </a>
 
     <a href="{% url 'logout' %}">
@@ -339,20 +363,27 @@
 </div>
 
 
+
+<!-- MAIN -->
+
 <div class="main">
+
 
     <div class="top-section">
 
         <div>
-            <h1>My Bookings</h1>
+
+            <h1>
+                My Bookings
+            </h1>
 
             <p class="welcome">
                 Welcome, {{ request.user.username }}!
             </p>
+
         </div>
 
     </div>
-
 
     {% if messages %}
 
@@ -369,30 +400,45 @@
 
     {% if bookings %}
 
+
         {% for booking in bookings %}
+
 
             <div class="booking-card">
 
 
                 <div class="booking-header">
 
+
                     <div class="package-title">
+
 
                         <div class="package-icon">
 
                             {% if booking.tour_package.destination == "Pokhara" %}
+
                                 🌊
+
                             {% elif booking.tour_package.destination == "Kathmandu" %}
+
                                 🛕
+
                             {% elif booking.tour_package.destination == "Everest Region" %}
+
                                 ⛰
+
                             {% elif booking.tour_package.destination == "Chitwan" %}
+
                                 🐘
+
                             {% else %}
+
                                 ✈
+
                             {% endif %}
 
                         </div>
+
 
                         <div>
 
@@ -406,8 +452,8 @@
 
                         </div>
 
-                    </div>
 
+                    </div>
 
                     {% if booking.status == "Confirmed" %}
 
@@ -423,13 +469,16 @@
 
                     {% endif %}
 
-                </div>
 
+                    </div>
                 <div class="details-grid">
+
 
                     <div class="detail-box">
 
-                        <span>Customer Name</span>
+                        <span>
+                            Customer Name
+                        </span>
 
                         <strong>
                             {{ booking.customer_name }}
@@ -438,9 +487,12 @@
                     </div>
 
 
+
                     <div class="detail-box">
 
-                        <span>Email</span>
+                        <span>
+                            Email
+                        </span>
 
                         <strong>
                             {{ booking.customer_email }}
@@ -449,9 +501,12 @@
                     </div>
 
 
+
                     <div class="detail-box">
 
-                        <span>Number of People</span>
+                        <span>
+                            Number of People
+                        </span>
 
                         <strong>
                             {{ booking.number_of_people }} People
@@ -460,9 +515,12 @@
                     </div>
 
 
+
                     <div class="detail-box">
 
-                        <span>Booking Date</span>
+                        <span>
+                            Booking Date
+                        </span>
 
                         <strong>
                             {{ booking.booking_date|date:"M d, Y" }}
@@ -471,9 +529,12 @@
                     </div>
 
 
+
                     <div class="detail-box">
 
-                        <span>Package Duration</span>
+                        <span>
+                            Package Duration
+                        </span>
 
                         <strong>
                             {{ booking.tour_package.duration }}
@@ -482,9 +543,12 @@
                     </div>
 
 
+
                     <div class="detail-box">
 
-                        <span>Start Date</span>
+                        <span>
+                            Start Date
+                        </span>
 
                         <strong>
                             {{ booking.tour_package.start_date|date:"M d, Y" }}
@@ -492,31 +556,37 @@
 
                     </div>
 
+
                 </div>
 
-
-                <!-- TRANSPORTATION -->
 
                 <div class="section-title">
                     Transportation Details
                 </div>
 
+
                 <div class="details-grid">
+
 
                     <div class="detail-box">
 
-                        <span>Included Transportation</span>
+                        <span>
+                            Included Transportation
+                        </span>
 
                         <strong>
-                            Tourist Bus
+                            {{ booking.tour_package.transportation }}
                         </strong>
 
                     </div>
 
 
+
                     <div class="detail-box">
 
-                        <span>Transportation Upgrade</span>
+                        <span>
+                            Transportation Upgrade
+                        </span>
 
                         <strong>
                             {{ booking.transportation_upgrade }}
@@ -525,9 +595,12 @@
                     </div>
 
 
+
                     <div class="detail-box">
 
-                        <span>Extra Price Per Person</span>
+                        <span>
+                            Extra Transportation Price
+                        </span>
 
                         <strong>
                             Rs. {{ booking.transportation_price|floatformat:2 }}
@@ -535,16 +608,16 @@
 
                     </div>
 
+
                 </div>
-
-
-                <!-- PRICE SUMMARY -->
 
                 <div class="section-title">
                     Price Summary
                 </div>
 
+
                 <div class="price-box">
+
 
                     <div class="price-row">
 
@@ -559,10 +632,11 @@
                     </div>
 
 
+
                     <div class="price-row">
 
                         <span>
-                            Transportation Extra Per Person
+                            Transportation Extra
                         </span>
 
                         <strong>
@@ -571,19 +645,6 @@
 
                     </div>
 
-
-                    <div class="price-row">
-
-                        <span>
-                            Total Price Per Person
-                        </span>
-
-                        <strong>
-                            Rs.
-                            {{ booking.tour_package.price|add:booking.transportation_price|floatformat:2 }}
-                        </strong>
-
-                    </div>
 
 
                     <div class="price-row">
@@ -599,6 +660,7 @@
                     </div>
 
 
+
                     <div class="price-row total">
 
                         <span>
@@ -611,95 +673,32 @@
 
                     </div>
 
+
+                </div>
+
+                <div class="section-title">
+                    Payment Details
                 </div>
 
 
-                <!-- PAYMENT -->
+                <div class="payment-box">
 
-                {% if booking.payment %}
 
-                    <div class="section-title">
-                        Payment Details
-                    </div>
+                    {% if booking.payment_status == "Paid" %}
 
-                    <div class="payment-box">
 
-                        <div class="price-row">
-
-                            <span>
-                                Payment Method
-                            </span>
-
-                            <strong>
-                                {{ booking.payment.payment_method }}
-                            </strong>
-
+                        <div class="payment-completed">
+                            ✓ Payment Completed
                         </div>
 
 
-                        <div class="price-row">
+                    {% else %}
 
-                            <span>
-                                Payment Amount
-                            </span>
-
-                            <strong>
-                                Rs. {{ booking.payment.amount|floatformat:2 }}
-                            </strong>
-
-                        </div>
-
-
-                        <div class="price-row">
-
-                            <span>
-                                Payment Date
-                            </span>
-
-                            <strong>
-                                {{ booking.payment.payment_date|date:"M d, Y" }}
-                            </strong>
-
-                        </div>
-
-
-                        <div class="price-row">
-
-                            <span>
-                                Payment Status
-                            </span>
-
-                            <strong>
-                                {{ booking.payment.status }}
-                            </strong>
-
-                        </div>
-
-
-                        {% if booking.payment.status == "Completed" %}
-
-                            <div class="payment-completed">
-                                ✓ Payment Completed
-                            </div>
-
-                        {% else %}
-
-                            <div class="payment-pending">
-                                ⏳ Payment Pending
-                            </div>
-
-                        {% endif %}
-
-                    </div>
-
-
-                {% else %}
-
-                    <div class="payment-box">
 
                         <div class="payment-pending">
                             ⏳ Payment Pending
                         </div>
+
 
                         <a
                             href="{% url 'payment' booking.id %}"
@@ -708,20 +707,27 @@
                             💳 Pay Now
                         </a>
 
-                    </div>
 
-                {% endif %}
+                    {% endif %}
+
+
+                </div>
+
 
             </div>
 
+
         {% endfor %}
+
 
 
     {% else %}
 
         <div class="empty">
 
-            <h2>No Bookings Yet</h2>
+            <h2>
+                No Bookings Yet
+            </h2>
 
             <p>
                 You have not made any tour bookings yet.
@@ -736,6 +742,7 @@
 
         </div>
 
+
     {% endif %}
 
 
@@ -743,8 +750,11 @@
         © 2026 PS Travel Point Tours. All Rights Reserved.
     </footer>
 
+
 </div>
 
+
 </body>
+
 </html>
 

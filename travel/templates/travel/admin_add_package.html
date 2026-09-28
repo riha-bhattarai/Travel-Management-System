@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Package - PS Travel Point Tours</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .buttons {
+            margin-top: 25px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .back {
+            margin-left: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Add Tour Package</h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <label>Package Name</label>
+        <input type="text" name="package_name" required>
+
+        <label>Destination</label>
+        <input type="text" name="destination" required>
+
+        <label>Description</label>
+        <textarea name="description" required></textarea>
+
+        <label>Duration</label>
+        <input type="text" name="duration" placeholder="e.g. 5 Days 4 Nights" required>
+
+        <label>Price</label>
+        <input type="number" name="price" min="0" required>
+
+        <label>Available Seats</label>
+        <input type="number" name="available_seats" min="1" required>
+
+        <label>Start Date</label>
+        <input type="date" name="start_date" required>
+
+        <div class="buttons">
+
+            <button type="submit">
+                ➕ Add Package
+            </button>
+
+            <a href="{% url 'admin_packages' %}" class="back">
+                Cancel
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>

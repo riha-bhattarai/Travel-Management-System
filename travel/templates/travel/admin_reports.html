@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reports - PS Travel Point Tours</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7f6;
+            color: #263b39;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 245px;
+            height: 100vh;
+            background: #173c3a;
+            color: white;
+            padding: 25px 18px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 13px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #285b56;
+        }
+
+        /* MAIN */
+
+        .main {
+            margin-left: 245px;
+            padding: 35px;
+        }
+
+        .top-section {
+            margin-bottom: 30px;
+        }
+
+        .top-section h1 {
+            font-size: 30px;
+            color: #173c3a;
+        }
+
+        .top-section p {
+            color: #6b7d7a;
+            margin-top: 6px;
+        }
+
+        /* REPORT CARDS */
+
+        .reports {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .report-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        }
+
+        .report-icon {
+            width: 48px;
+            height: 48px;
+            background: #e5f2ef;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .report-card span {
+            display: block;
+            color: #71817e;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .report-card h2 {
+            color: #173c3a;
+            font-size: 28px;
+        }
+
+        /* REVENUE */
+
+        .revenue-card {
+            grid-column: span 3;
+            background: #173c3a;
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 5px;
+        }
+
+        .revenue-card span {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .revenue-card h2 {
+            font-size: 32px;
+            margin-top: 8px;
+        }
+
+        /* BOOKING SUMMARY */
+
+        .summary {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+            margin-top: 25px;
+        }
+
+        .summary h2 {
+            color: #173c3a;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid #e5ecea;
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+
+        .summary-row span {
+            color: #71817e;
+        }
+
+        .summary-row strong {
+            color: #173c3a;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            color: #7a8987;
+            font-size: 13px;
+            margin-top: 35px;
+            padding: 20px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .reports {
+                grid-template-columns: 1fr;
+            }
+
+            .revenue-card {
+                grid-column: span 1;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<div class="sidebar">
+
+    <div class="logo">
+        ✈ PS Travel Point Tours
+    </div>
+
+    <a href="{% url 'admin_dashboard' %}">
+        📊 Dashboard
+    </a>
+
+    <a href="{% url 'admin_users' %}">
+        👥 Users
+    </a>
+
+    <a href="{% url 'admin_packages' %}">
+    🧳 Packages
+         </a>
+    <a href="{% url 'admin_bookings' %}">
+        📋 Bookings
+    </a>
+
+    <a href="{% url 'admin_payments' %}">
+    💳 Payments
+     </a>
+
+    <a href="{% url 'admin_reports' %}" class="active">
+        📊 Reports
+    </a>
+
+    <a href="{% url 'logout' %}">
+        🚪 Logout
+    </a>
+
+</div>
+
+<div class="main">
+
+    <div class="top-section">
+
+        <h1>
+            Reports
+        </h1>
+
+
+    </div>
+
+
+
+    <div class="reports">
+
+
+        <div class="report-card">
+
+            <div class="report-icon">
+                👥
+            </div>
+
+            <span>
+                Total Customers
+            </span>
+
+            <h2>
+                {{ total_users }}
+            </h2>
+
+        </div>
+
+
+        <div class="report-card">
+
+            <div class="report-icon">
+                🧳
+            </div>
+
+            <span>
+                Tour Packages
+            </span>
+
+            <h2>
+                {{ total_packages }}
+            </h2>
+
+        </div>
+
+
+        <div class="report-card">
+
+            <div class="report-icon">
+                📋
+            </div>
+
+            <span>
+                Total Bookings
+            </span>
+
+            <h2>
+                {{ total_bookings }}
+            </h2>
+
+        </div>
+
+
+        <div class="report-card">
+
+            <div class="report-icon">
+                ✅
+            </div>
+
+            <span>
+                Confirmed Bookings
+            </span>
+
+            <h2>
+                {{ confirmed_bookings }}
+            </h2>
+
+        </div>
+
+
+        <div class="report-card">
+
+            <div class="report-icon">
+                ⏳
+            </div>
+
+            <span>
+                Pending Bookings
+            </span>
+
+            <h2>
+                {{ pending_bookings }}
+            </h2>
+
+        </div>
+
+
+        <div class="report-card">
+
+            <div class="report-icon">
+                💳
+            </div>
+
+            <span>
+                Completed Payments
+            </span>
+
+            <h2>
+                {{ total_payments }}
+            </h2>
+
+        </div>
+
+        <div class="revenue-card">
+
+            <span>
+                Total Revenue
+            </span>
+
+            <h2>
+                Rs. {{ total_revenue|floatformat:2 }}
+            </h2>
+
+        </div>
+
+
+    </div>
+
+    <div class="summary">
+
+        <h2>
+            Booking Summary
+        </h2>
+
+
+        <div class="summary-row">
+
+            <span>
+                Total Bookings
+            </span>
+
+            <strong>
+                {{ total_bookings }}
+            </strong>
+
+        </div>
+
+
+        <div class="summary-row">
+
+            <span>
+                Confirmed Bookings
+            </span>
+
+            <strong>
+                {{ confirmed_bookings }}
+            </strong>
+
+        </div>
+
+
+        <div class="summary-row">
+
+            <span>
+                Pending Bookings
+            </span>
+
+            <strong>
+                {{ pending_bookings }}
+            </strong>
+
+        </div>
+
+
+        <div class="summary-row">
+
+            <span>
+                Completed Payments
+            </span>
+
+            <strong>
+                {{ total_payments }}
+            </strong>
+
+        </div>
+
+
+        <div class="summary-row">
+
+            <span>
+                Total Revenue
+            </span>
+
+            <strong>
+                Rs. {{ total_revenue|floatformat:2 }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <footer>
+        © 2026 PS Travel Point Tours. All Rights Reserved.
+    </footer>
+
+</div>
+
+</body>
+
+</html>
+

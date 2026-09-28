@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Admin Dashboard - PS Travel Point Tours</title>
+    <title>Users - PS Travel Point Tours</title>
 
     <style>
 
@@ -23,6 +23,7 @@
             background-color: #f4f7f7;
             color: #222;
         }
+
 
         /* MAIN LAYOUT */
 
@@ -59,7 +60,7 @@
         }
 
 
-        /* SIDEBAR MENU */
+        /* MENU */
 
         .menu {
             margin-top: 30px;
@@ -116,7 +117,7 @@
         }
 
 
-        /* STAT CARDS */
+        /* USER SUMMARY CARDS */
 
         .cards {
             display: grid;
@@ -154,9 +155,9 @@
         }
 
 
-        /* RECENT BOOKINGS */
+        /* USER SECTION */
 
-        .booking-section {
+        .user-section {
             background-color: white;
             border-radius: 12px;
             padding: 25px;
@@ -166,10 +167,16 @@
                 rgba(0,0,0,0.06);
         }
 
-        .booking-section h2 {
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
             color: #173c3a;
             font-size: 21px;
-            margin-bottom: 20px;
         }
 
 
@@ -203,6 +210,34 @@
         }
 
 
+        /* USERNAME */
+
+        .username {
+            font-weight: bold;
+            color: #173c3a;
+        }
+
+
+        /* ROLE */
+
+        .role {
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .admin-role {
+            background-color: #e8eefc;
+            color: #3656a3;
+        }
+
+        .user-role {
+            background-color: #e5f5ee;
+            color: #16845a;
+        }
+
+
         /* STATUS */
 
         .status {
@@ -212,14 +247,53 @@
             font-weight: bold;
         }
 
-        .confirmed {
+        .active {
             background-color: #e5f5ee;
             color: #16845a;
         }
 
-        .pending {
-            background-color: #fff4df;
-            color: #c17b00;
+        .inactive {
+            background-color: #fde8e8;
+            color: #c0392b;
+        }
+
+
+        /* ACTION BUTTONS */
+
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .edit-btn,
+        .delete-btn {
+            border: none;
+            padding: 7px 11px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .edit-btn {
+            background-color: #e8f1f0;
+            color: #176f68;
+        }
+
+        .edit-btn:hover {
+            background-color: #176f68;
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #fde8e8;
+            color: #c0392b;
+        }
+
+        .delete-btn:hover {
+            background-color: #c0392b;
+            color: white;
         }
 
 
@@ -285,6 +359,10 @@
                 margin-right: 5px;
             }
 
+            .section-header {
+                display: block;
+            }
+
         }
 
     </style>
@@ -296,6 +374,9 @@
 
 
 <div class="dashboard">
+
+
+    <!-- SIDEBAR -->
 
     <aside class="sidebar">
 
@@ -310,16 +391,15 @@
 
         <div class="menu">
 
-            <a href="{% url 'admin_dashboard' %}"
-               class="active">
+            <a href="{% url 'admin_dashboard' %}">
 
                 📊 Dashboard
 
             </a>
 
 
-
-            <a href="{% url 'admin_users' %}">
+            <a href="{% url 'admin_users' %}"
+               class="active">
 
                 👥 Users
 
@@ -327,22 +407,23 @@
 
 
             <a href="{% url 'admin_packages' %}">
-
-          🧳 Packages
-
-             </a>
-
-                 <a href="{% url 'admin_bookings' %}">
-               📋 Bookings 
-                  </a>
-
-              <a href="/admin-dashboard/payments/">
-                💳 Payment Management
-                   </a>
-
-               <a href="/admin-dashboard/reports/">
-                  📊 Reports
+             🧳 Packages
                 </a>
+
+
+            <a href="{% url 'admin_bookings' %}">
+              📋 Bookings
+                </a>
+
+
+           <a href="{% url 'admin_payments' %}">
+             💳 Payments
+              </a>
+
+
+            <a href="{% url 'admin_reports' %}">
+           📊 Reports
+           </a>
 
             <div class="logout">
 
@@ -359,22 +440,21 @@
     </aside>
 
 
-
     <main class="content">
 
 
         <div class="header">
 
             <h1>
-                Admin Dashboard
+                User Management
             </h1>
 
             <p>
-                Welcome, Administrator 👋
-                Manage your travel system from here.
+                Manage registered users and administrators.
             </p>
 
         </div>
+
 
 
         <div class="cards">
@@ -387,11 +467,11 @@
                 </div>
 
                 <h3>
-                    {{ total_users }}
+                    {{ users|length }}
                 </h3>
 
                 <p>
-                    Registered Users
+                    Total Users
                 </p>
 
             </div>
@@ -400,15 +480,26 @@
             <div class="card">
 
                 <div class="card-icon">
-                    🧳
+                    🛡️
                 </div>
 
                 <h3>
-                    {{ total_packages }}
+
+                    {% for user in users %}
+
+                        {% if user.is_staff %}
+                            {% if forloop.first %}
+                            {% endif %}
+                        {% endif %}
+
+                    {% endfor %}
+
+                    {{ users|length }}
+
                 </h3>
 
                 <p>
-                    Tour Packages
+                    Registered Accounts
                 </p>
 
             </div>
@@ -417,49 +508,17 @@
             <div class="card">
 
                 <div class="card-icon">
-                    📋
+                    ✅
                 </div>
 
                 <h3>
-                    {{ total_bookings }}
+
+                    {{ users|length }}
+
                 </h3>
 
                 <p>
-                    Total Bookings
-                </p>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="card-icon">
-                    💳
-                </div>
-
-                <h3>
-                    {{ total_payments }}
-                </h3>
-
-                <p>
-                    Completed Payments
-                </p>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="card-icon">
-                    💺
-                </div>
-
-                <h3>
-                    {{ available_seats }}
-                </h3>
-
-                <p>
-                    Available Seats
+                    Active Accounts
                 </p>
 
             </div>
@@ -468,41 +527,51 @@
         </div>
 
 
-        <!-- RECENT BOOKINGS -->
+        <!-- USER TABLE -->
 
-        <div class="booking-section">
+        <div class="user-section">
 
-            <h2>
-                Recent Bookings
-            </h2>
+
+            <div class="section-header">
+
+                <h2>
+                    All Users
+                </h2>
+
+            </div>
 
 
             <div class="table-container">
 
                 <table>
 
+
                     <thead>
 
                         <tr>
 
                             <th>
-                                Customer
+                                Username
                             </th>
 
                             <th>
-                                Package
+                                Email
                             </th>
 
                             <th>
-                                People
-                            </th>
-
-                            <th>
-                                Date
+                                Role
                             </th>
 
                             <th>
                                 Status
+                            </th>
+
+                            <th>
+                                Date Joined
+                            </th>
+
+                            <th>
+                                Actions
                             </th>
 
                         </tr>
@@ -513,43 +582,105 @@
                     <tbody>
 
 
-                    {% for booking in recent_bookings %}
+                    {% for user in users %}
 
                         <tr>
 
+
                             <td>
-                                {{ booking.customer_name }}
+
+                                <span class="username">
+
+                                    {{ user.username }}
+
+                                </span>
+
                             </td>
 
+
                             <td>
-                                {{ booking.tour_package.package_name }}
+
+                                {{ user.email|default:"No email" }}
+
                             </td>
 
-                            <td>
-                                {{ booking.number_of_people }}
-                            </td>
-
-                            <td>
-                                {{ booking.booking_date|date:"M d, Y" }}
-                            </td>
 
                             <td>
 
-                                {% if booking.status == "Confirmed" %}
+                                {% if user.is_staff %}
 
-                                    <span class="status confirmed">
-                                        Confirmed
+                                    <span class="role admin-role">
+
+                                        Admin
+
                                     </span>
 
                                 {% else %}
 
-                                    <span class="status pending">
-                                        {{ booking.status }}
+                                    <span class="role user-role">
+
+                                        User
+
                                     </span>
 
                                 {% endif %}
 
                             </td>
+
+
+                            <td>
+
+                                {% if user.is_active %}
+
+                                    <span class="status active">
+
+                                        Active
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="status inactive">
+
+                                        Inactive
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <td>
+
+                                {{ user.date_joined|date:"M d, Y" }}
+
+                            </td>
+
+
+                            <td>
+
+                                <div class="actions">
+
+                                    <a href="/admin/auth/user/{{ user.id }}/change/"
+                                       class="edit-btn">
+
+                                        ✏️ Edit
+
+                                    </a>
+
+
+                                    <a href="/admin/auth/user/{{ user.id }}/delete/"
+                                       class="delete-btn">
+
+                                        🗑️ Delete
+
+                                    </a>
+
+                                </div>
+
+                            </td>
+
 
                         </tr>
 
@@ -558,10 +689,10 @@
 
                         <tr>
 
-                            <td colspan="5"
+                            <td colspan="6"
                                 class="empty">
 
-                                No bookings available yet.
+                                No users found.
 
                             </td>
 
@@ -572,9 +703,11 @@
 
                     </tbody>
 
+
                 </table>
 
             </div>
+
 
         </div>
 

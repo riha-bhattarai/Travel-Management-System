@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Package Management - PS Travel Point Tours</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        .sidebar {
+            width: 230px;
+            height: 100vh;
+            background: #1f2937;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding-top: 25px;
+        }
+
+        .sidebar h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 25px;
+        }
+
+        .sidebar a:hover,
+        .sidebar .active {
+            background: #374151;
+        }
+
+        .logout {
+            margin-top: 30px;
+        }
+
+        .main {
+            margin-left: 230px;
+            padding: 30px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .add-btn {
+            background: #2563eb;
+            color: white;
+            padding: 12px 18px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .add-btn:hover {
+            background: #1d4ed8;
+        }
+
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #e5e7eb;
+        }
+
+        .delete-btn {
+            background: #dc2626;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .delete-btn:hover {
+            background: #b91c1c;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+
+        <h2>Admin Panel</h2>
+
+        <a href="{% url 'admin_dashboard' %}">
+            📊 Dashboard
+        </a>
+
+        <a href="{% url 'admin_users' %}">
+            👥 Users
+        </a>
+
+        <a href="{% url 'admin_packages' %}" class="active">
+            🧳 Packages
+        </a>
+
+        <a href="{% url 'admin_bookings' %}">
+            📋 Bookings
+        </a>
+
+        <a href="{% url 'admin_payments' %}">
+            💳 Payments
+        </a>
+
+        <a href="{% url 'admin_reports' %}">
+            📊 Reports
+        </a>
+
+        <div class="logout">
+            <a href="{% url 'logout' %}">
+                🚪 Logout
+            </a>
+        </div>
+
+    </div>
+
+
+    <div class="main">
+
+        <div class="header">
+
+            <h1>Package Management</h1>
+
+            <a href="{% url 'admin_add_package' %}" class="add-btn">
+                ➕ Add Package
+            </a>
+
+        </div>
+
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Package Name</th>
+                    <th>Destination</th>
+                    <th>Duration</th>
+                    <th>Price</th>
+                    <th>Available Seats</th>
+                    <th>Start Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+
+                {% for package in packages %}
+
+                <tr>
+
+                    <td>{{ package.package_name }}</td>
+
+                    <td>{{ package.destination }}</td>
+
+                    <td>{{ package.duration }}</td>
+
+                    <td>Rs. {{ package.price }}</td>
+
+                    <td>{{ package.available_seats }}</td>
+
+                    <td>{{ package.start_date }}</td>
+
+                    <td>
+
+                        <form method="POST"
+                              action="{% url 'admin_delete_package' package.id %}"
+                              onsubmit="return confirm('Are you sure you want to delete this package?');">
+
+                            {% csrf_token %}
+
+                            <button type="submit" class="delete-btn">
+                                🗑️ Delete
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+                    <td colspan="7" class="empty">
+                        No packages available.
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</body>
+</html>

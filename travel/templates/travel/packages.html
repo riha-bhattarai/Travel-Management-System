@@ -4,7 +4,6 @@
 <head>
 
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Tour Packages - PS Travel Point Tours</title>
@@ -19,54 +18,51 @@
         }
 
         body {
-            background-color: #f4f7f8;
-            color: #222;
+            background: #f4f7f6;
+            color: #263b39;
         }
 
+        /* SIDEBAR */
 
-        /* NAVBAR */
-
-        .navbar {
-            background-color: #173c3a;
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 245px;
+            height: 100vh;
+            background: #173c3a;
             color: white;
-
-            padding: 18px 6%;
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 25px 18px;
         }
 
         .logo {
-            font-size: 21px;
+            font-size: 20px;
             font-weight: bold;
+            margin-bottom: 40px;
+            text-align: center;
         }
 
-        .logo span {
-            color: #f5a623;
-        }
-
-        .nav-links a {
+        .sidebar a {
+            display: block;
             color: white;
             text-decoration: none;
-
-            margin-left: 20px;
-
-            font-size: 14px;
+            padding: 13px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            font-size: 15px;
         }
 
-        .nav-links a:hover {
-            color: #f5a623;
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #285b56;
         }
 
 
         /* MAIN */
 
-        .container {
-            width: 88%;
-            max-width: 1200px;
-
-            margin: 40px auto;
+        .main {
+            margin-left: 245px;
+            padding: 35px;
         }
 
 
@@ -80,7 +76,6 @@
         .page-header h1 {
             color: #173c3a;
             font-size: 30px;
-
             margin-bottom: 8px;
         }
 
@@ -94,9 +89,7 @@
 
         .package-grid {
             display: grid;
-
             grid-template-columns: repeat(2, 1fr);
-
             gap: 25px;
         }
 
@@ -104,20 +97,15 @@
         /* PACKAGE CARD */
 
         .package-card {
-            background-color: white;
-
+            background: white;
             border-radius: 12px;
-
             padding: 25px;
-
             box-shadow: 0 4px 15px rgba(0,0,0,0.07);
-
             transition: 0.3s;
         }
 
         .package-card:hover {
             transform: translateY(-5px);
-
             box-shadow: 0 8px 22px rgba(0,0,0,0.12);
         }
 
@@ -126,43 +114,31 @@
 
         .package-top {
             display: flex;
-
             justify-content: space-between;
-
             align-items: center;
-
             margin-bottom: 15px;
         }
 
         .package-icon {
             width: 52px;
             height: 52px;
-
             border-radius: 10px;
-
             background-color: #e6f3f1;
-
             display: flex;
-
             align-items: center;
             justify-content: center;
-
             font-size: 27px;
         }
 
         .package-price {
             color: #176f68;
-
             font-size: 20px;
-
             font-weight: bold;
         }
 
         .per-person {
             color: #777;
-
             font-size: 11px;
-
             font-weight: normal;
         }
 
@@ -171,9 +147,7 @@
 
         .package-card h2 {
             color: #173c3a;
-
             font-size: 21px;
-
             margin-bottom: 12px;
         }
 
@@ -182,11 +156,8 @@
 
         .description {
             color: #777;
-
             font-size: 14px;
-
             line-height: 1.6;
-
             margin-bottom: 18px;
         }
 
@@ -195,35 +166,26 @@
 
         .details {
             display: grid;
-
             grid-template-columns: 1fr 1fr;
-
             gap: 10px;
-
             margin-bottom: 20px;
         }
 
         .detail {
             background-color: #f4f8f8;
-
             padding: 11px;
-
             border-radius: 7px;
         }
 
         .detail strong {
             display: block;
-
             color: #176f68;
-
             font-size: 12px;
-
             margin-bottom: 4px;
         }
 
         .detail span {
             color: #555;
-
             font-size: 13px;
         }
 
@@ -232,25 +194,15 @@
 
         .book-btn {
             display: block;
-
             width: 100%;
-
             background-color: #176f68;
-
             color: white;
-
             text-decoration: none;
-
             text-align: center;
-
             padding: 12px;
-
             border-radius: 7px;
-
             font-size: 14px;
-
             font-weight: bold;
-
             transition: 0.3s;
         }
 
@@ -262,29 +214,28 @@
         /* FOOTER */
 
         footer {
-            background-color: #173c3a;
-
-            color: white;
-
             text-align: center;
-
-            padding: 25px 20px;
-
-            margin-top: 50px;
-        }
-
-        footer p {
-            color: #cbd7d6;
-
+            color: #7a8987;
             font-size: 13px;
-
-            margin-top: 6px;
+            margin-top: 35px;
+            padding: 20px;
         }
 
 
         /* RESPONSIVE */
 
-        @media (max-width: 800px) {
+        @media (max-width: 850px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 20px;
+            }
 
             .package-grid {
                 grid-template-columns: 1fr;
@@ -294,22 +245,6 @@
 
 
         @media (max-width: 550px) {
-
-            .navbar {
-                padding: 15px 5%;
-            }
-
-            .logo {
-                font-size: 17px;
-            }
-
-            .nav-links a {
-                margin-left: 8px;
-            }
-
-            .container {
-                width: 90%;
-            }
 
             .page-header h1 {
                 font-size: 25px;
@@ -328,203 +263,199 @@
 
 <body>
 
+<div class="sidebar">
 
-    <!-- NAVBAR -->
-
-    <nav class="navbar">
-
-        <div class="logo">
-
-            ✈ PS <span>Travel</span> Point Tours
-
-        </div>
+    <div class="logo">
+        ✈ PS Travel Point Tours
+    </div>
 
 
-        <div class="nav-links">
-
-            <a href="{% url 'dashboard' %}">
-                Dashboard
-            </a>
-
-            <a href="{% url 'my_bookings' %}">
-                My Bookings
-            </a>
-
-            <a href="{% url 'logout' %}">
-                Logout
-            </a>
-
-        </div>
-
-    </nav>
+    <a href="{% url 'dashboard' %}">
+        🏠 Dashboard
+    </a>
 
 
+    <a href="{% url 'packages' %}" class="active">
+        🌍 Tour Packages
+    </a>
 
-    <!-- MAIN -->
 
-    <main class="container">
+    <a href="{% url 'my_bookings' %}">
+        📋 My Bookings
+    </a>
 
 
-        <div class="page-header">
+    <a href="{% url 'my_payments' %}">
+        💳 My Payments
+    </a>
 
-            <h1>
-                Our Tour Packages
-            </h1>
 
-            <p>
-                Explore our available destinations and choose your next trip.
+    <a href="{% url 'logout' %}">
+        🚪 Logout
+    </a>
+
+</div>
+
+
+<div class="main">
+
+
+    <div class="page-header">
+
+        <h1>
+            Our Tour Packages
+        </h1>
+
+        <p>
+            Explore our available destinations and choose your next trip.
+        </p>
+
+    </div>
+
+
+    <div class="package-grid">
+
+
+        {% for package in tour_packages %}
+
+        <div class="package-card">
+
+
+            <div class="package-top">
+
+                <div class="package-icon">
+
+                    {% if package.destination == "Pokhara" %}
+
+                        🌊
+
+                    {% elif package.destination == "Kathmandu" %}
+
+                        🛕
+
+                    {% elif package.destination == "Everest Region" %}
+
+                        🏔️
+
+                    {% elif package.destination == "Chitwan" %}
+
+                        🐘
+
+                    {% else %}
+
+                        ✈️
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="package-price">
+
+                    Rs. {{ package.price|floatformat:2 }}
+
+                    <span class="per-person">
+                        / person
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <h2>
+                {{ package.package_name }}
+            </h2>
+
+
+            <p class="description">
+
+                {{ package.description }}
+
             </p>
 
-        </div>
+
+            <div class="details">
 
 
+                <div class="detail">
 
-        <div class="package-grid">
+                    <strong>
+                        📍 Destination
+                    </strong>
 
-
-            {% for package in tour_packages %}
-
-
-            <!-- PACKAGE CARD -->
-
-            <div class="package-card">
-
-
-                <div class="package-top">
-
-                    <div class="package-icon">
-
-                        {% if package.destination == "Pokhara" %}
-                           🌊
-                        {% elif package.destination == "Kathmandu" %}
-                             🛕
-                        {% elif package.destination == "Everest Region" %}
-                            🏔️
-                        {% elif package.destination == "Chitwan" %}
-                            🐘
-                        {% else %}
-                            ✈️
-                        {% endif %}
-
-                    </div>
-
-
-                    <div class="package-price">
-
-                        Rs. {{ package.price|floatformat:2 }}
-
-                        <span class="per-person">
-                            / person
-                        </span>
-
-                    </div>
+                    <span>
+                        {{ package.destination }}
+                    </span>
 
                 </div>
 
 
+                <div class="detail">
 
-                <h2>
-                    {{ package.package_name }}
-                </h2>
+                    <strong>
+                        ⏱ Duration
+                    </strong>
 
-
-
-                <p class="description">
-
-                    {{ package.description }}
-
-                </p>
-
-
-
-                <div class="details">
-
-
-                    <div class="detail">
-
-                        <strong>
-                            📍 Destination
-                        </strong>
-
-                        <span>
-                            {{ package.destination }}
-                        </span>
-
-                    </div>
-
-
-
-                    <div class="detail">
-
-                        <strong>
-                            ⏱ Duration
-                        </strong>
-
-                        <span>
-                            {{ package.duration }}
-                        </span>
-
-                    </div>
-
-
-
-                    <div class="detail">
-
-                        <strong>
-                            📅 Start Date
-                        </strong>
-
-                        <span>
-                            {{ package.start_date }}
-                        </span>
-
-                    </div>
-
-
-
-                    <div class="detail">
-
-                        <strong>
-                            💺 Available Seats
-                        </strong>
-
-                        <span>
-                            {{ package.available_seats }}
-                        </span>
-
-                    </div>
-
+                    <span>
+                        {{ package.duration }}
+                    </span>
 
                 </div>
 
 
+                <div class="detail">
 
-                <a
-                    href="{% url 'booking' package.id %}"
-                    class="book-btn"
-                >
+                    <strong>
+                        📅 Start Date
+                    </strong>
 
-                    Book Now →
+                    <span>
+                        {{ package.start_date }}
+                    </span>
 
-                </a>
+                </div>
+
+
+                <div class="detail">
+
+                    <strong>
+                        💺 Available Seats
+                    </strong>
+
+                    <span>
+                        {{ package.available_seats }}
+                    </span>
+
+                </div>
 
 
             </div>
 
 
-            {% empty %}
-
-                <p>
-                    No tour packages are currently available.
-                </p>
-
-            {% endfor %}
+            <a
+                href="{% url 'booking' package.id %}"
+                class="book-btn"
+            >
+                Book Now →
+            </a>
 
 
         </div>
 
 
-    </main>
+        {% empty %}
+
+
+            <p>
+                No tour packages are currently available.
+            </p>
+
+
+        {% endfor %}
+
+
+    </div>
 
 
     <footer>
@@ -544,7 +475,9 @@
     </footer>
 
 
+</div>
+
+
 </body>
 
 </html>
-

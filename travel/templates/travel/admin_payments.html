@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Payment Management - PS Travel Point Tours</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7f6;
+            color: #263b39;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 240px;
+            height: 100vh;
+            background: #173c3a;
+            color: white;
+            padding: 25px 15px;
+        }
+
+        .logo {
+            font-size: 19px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .nav a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 13px 15px;
+            margin-bottom: 7px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .nav a:hover {
+            background: #245650;
+        }
+
+        .nav .active {
+            background: #1f6f68;
+        }
+
+        /* MAIN */
+
+        .main {
+            margin-left: 240px;
+            padding: 35px;
+        }
+
+        .top-section {
+            margin-bottom: 25px;
+        }
+
+        .top-section h1 {
+            color: #173c3a;
+            font-size: 28px;
+        }
+
+        /* STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+        }
+
+        .stat-card span {
+            display: block;
+            color: #7a8987;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .stat-card strong {
+            color: #173c3a;
+            font-size: 25px;
+        }
+
+        /* TABLE */
+
+        .table-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+            overflow-x: auto;
+        }
+
+        .table-card h2 {
+            color: #173c3a;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        th {
+            background: #f0f5f4;
+            color: #173c3a;
+            text-align: left;
+            padding: 13px;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 14px 13px;
+            border-bottom: 1px solid #e5ebe9;
+            font-size: 13px;
+        }
+
+        tr:hover {
+            background: #fafcfc;
+        }
+
+        /* STATUS */
+
+        .status {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .paid {
+            background: #dff3e9;
+            color: #24704d;
+        }
+
+        .pending {
+            background: #fff1d6;
+            color: #9a6800;
+        }
+
+        .failed {
+            background: #f9dddd;
+            color: #a33a3a;
+        }
+
+        /* ACTION */
+
+        .action {
+            color: #1f6f68;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .action:hover {
+            text-decoration: underline;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 30px;
+            color: #7a8987;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 200px;
+            }
+
+            .main {
+                margin-left: 200px;
+                padding: 25px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="sidebar">
+
+    <div class="logo">
+        ✈ PS Travel Point Tours
+    </div>
+
+
+    <div class="nav">
+
+        <a href="{% url 'admin_dashboard' %}">
+            🏠 Dashboard
+        </a>
+
+        <a href="{% url 'admin_users' %}">
+            👥 Users
+        </a>
+
+       <a href="{% url 'admin_packages' %}">
+    🧳 Packages
+           </a>
+
+        <a href="{% url 'admin_bookings' %}">
+            📋 Bookings
+        </a>
+
+        <a href="{% url 'admin_payments' %}" class="active">
+            💳 Payment Management
+        </a>
+
+        <a href="{% url 'admin_reports' %}">
+            📊 Reports
+        </a>
+
+        <a href="{% url 'logout' %}">
+            🚪 Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+<div class="main">
+
+
+    <div class="top-section">
+
+        <h1>
+            Payment Management
+        </h1>
+
+    </div>
+
+
+    <div class="stats">
+
+
+        <div class="stat-card">
+
+            <span>
+                Total Payments
+            </span>
+
+            <strong>
+                {{ total_payments }}
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>
+                Completed Payments
+            </span>
+
+            <strong>
+                {{ completed_payments }}
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>
+                Pending Payments
+            </span>
+
+            <strong>
+                {{ pending_payments }}
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>
+                Total Revenue
+            </span>
+
+            <strong>
+                Rs. {{ total_revenue|floatformat:2 }}
+            </strong>
+
+        </div>
+
+
+    </div>
+
+    <div class="table-card">
+
+        <h2>
+            All Payments
+        </h2>
+
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Customer
+                    </th>
+
+                    <th>
+                        Package
+                    </th>
+
+                    <th>
+                        Amount
+                    </th>
+
+                    <th>
+                        Payment Method
+                    </th>
+
+                    <th>
+                        Payment Date
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for payment in payments %}
+
+                <tr>
+
+                    <td>
+                        {{ payment.booking.customer_name }}
+                    </td>
+
+                    <td>
+                        {{ payment.booking.tour_package.package_name }}
+                    </td>
+
+                    <td>
+                        Rs. {{ payment.amount|floatformat:2 }}
+                    </td>
+
+                    <td>
+                        {{ payment.payment_method }}
+                    </td>
+
+                    <td>
+                        {{ payment.payment_date|date:"M d, Y" }}
+                    </td>
+
+                    <td>
+
+                        {% if payment.status == "Paid" %}
+
+                            <span class="status paid">
+                                Paid
+                            </span>
+
+                        {% elif payment.status == "Pending" %}
+
+                            <span class="status pending">
+                                Pending
+                            </span>
+
+                        {% else %}
+
+                            <span class="status failed">
+                                {{ payment.status }}
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+
+                    <td
+                        colspan="6"
+                        class="empty"
+                    >
+                        No payments found.
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>
