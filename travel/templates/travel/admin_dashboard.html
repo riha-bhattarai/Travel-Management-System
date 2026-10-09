@@ -336,13 +336,13 @@
                📋 Bookings 
                   </a>
 
-              <a href="/admin-dashboard/payments/">
-                💳 Payment Management
-                   </a>
+             <a href="{% url 'admin_payments' %}">
+                  💳 Payment Management
+                         </a>
 
-               <a href="/admin-dashboard/reports/">
-                  📊 Reports
-                </a>
+             <a href="{% url 'admin_reports' %}">
+               📊 Reports
+                        </a>
 
             <div class="logout">
 
@@ -464,121 +464,7 @@
 
             </div>
 
-
-        </div>
-
-
-        <!-- RECENT BOOKINGS -->
-
-        <div class="booking-section">
-
-            <h2>
-                Recent Bookings
-            </h2>
-
-
-            <div class="table-container">
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th>
-                                Customer
-                            </th>
-
-                            <th>
-                                Package
-                            </th>
-
-                            <th>
-                                People
-                            </th>
-
-                            <th>
-                                Date
-                            </th>
-
-                            <th>
-                                Status
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-
-                    <tbody>
-
-
-                    {% for booking in recent_bookings %}
-
-                        <tr>
-
-                            <td>
-                                {{ booking.customer_name }}
-                            </td>
-
-                            <td>
-                                {{ booking.tour_package.package_name }}
-                            </td>
-
-                            <td>
-                                {{ booking.number_of_people }}
-                            </td>
-
-                            <td>
-                                {{ booking.booking_date|date:"M d, Y" }}
-                            </td>
-
-                            <td>
-
-                                {% if booking.status == "Confirmed" %}
-
-                                    <span class="status confirmed">
-                                        Confirmed
-                                    </span>
-
-                                {% else %}
-
-                                    <span class="status pending">
-                                        {{ booking.status }}
-                                    </span>
-
-                                {% endif %}
-
-                            </td>
-
-                        </tr>
-
-
-                    {% empty %}
-
-                        <tr>
-
-                            <td colspan="5"
-                                class="empty">
-
-                                No bookings available yet.
-
-                            </td>
-
-                        </tr>
-
-                    {% endfor %}
-
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        </div>
-
-
+      
     </main>
 
 

@@ -248,55 +248,6 @@
         }
 
 
-        /* QUICK ACCESS */
-
-        .quick-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-
-            gap: 18px;
-
-            margin-bottom: 35px;
-        }
-
-        .quick-card {
-            background-color: white;
-
-            padding: 23px;
-
-            border-radius: 10px;
-
-            text-decoration: none;
-            color: #222;
-
-            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
-
-            transition: 0.3s;
-        }
-
-        .quick-card:hover {
-            transform: translateY(-3px);
-            background-color: #f8ffff;
-        }
-
-        .quick-card-icon {
-            font-size: 30px;
-            margin-bottom: 10px;
-        }
-
-        .quick-card h3 {
-            color: #176f68;
-            font-size: 17px;
-            margin-bottom: 7px;
-        }
-
-        .quick-card p {
-            color: #777;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-
-
         /* TRAVEL INFORMATION */
 
         .travel-info {
@@ -380,9 +331,6 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .quick-grid {
-                grid-template-columns: 1fr;
-            }
 
             .info-grid {
                 grid-template-columns: 1fr;
@@ -527,8 +475,6 @@
 
 
 
-        <!-- WELCOME -->
-
         <section class="welcome">
 
             <div>
@@ -550,9 +496,6 @@
 
         </section>
 
-
-
-        <!-- STATISTICS -->
 
         <div class="section-title">
 
@@ -697,81 +640,6 @@
                     </div>
 
                 </div>
-
-            </a>
-
-
-        </div>
-
-
-        <div class="section-title">
-
-            <h2>
-                Quick Access
-            </h2>
-
-            <p>
-                Quickly access the most important features.
-            </p>
-
-        </div>
-
-
-        <div class="quick-grid">
-
-
-            <a href="{% url 'packages' %}" class="quick-card">
-
-                <div class="quick-card-icon">
-                    🧳
-                </div>
-
-                <h3>
-                    Explore Tour Packages
-                </h3>
-
-                <p>
-                    Browse available destinations and choose
-                    your next adventure.
-                </p>
-
-            </a>
-
-
-
-            <a href="{% url 'my_bookings' %}" class="quick-card">
-
-                <div class="quick-card-icon">
-                    📋
-                </div>
-
-                <h3>
-                    My Bookings
-                </h3>
-
-                <p>
-                    View your bookings, booking status and
-                    trip information.
-                </p>
-
-            </a>
-
-
-
-            <a href="{% url 'my_bookings' %}" class="quick-card">
-
-                <div class="quick-card-icon">
-                    💳
-                </div>
-
-                <h3>
-                    View Payments
-                </h3>
-
-                <p>
-                    Check your payment information and
-                    payment status.
-                </p>
 
             </a>
 

@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -75,7 +76,6 @@ def packages(request):
         }
     )
 
-
 @login_required
 def booking(request, package_id):
 
@@ -85,6 +85,18 @@ def booking(request, package_id):
     )
 
     if request.method == 'POST':
+
+        # Check whether the tour has already started
+        if timezone.localdate() >= package.start_date:
+
+            messages.error(
+                request,
+                'Booking Closed — This tour has already started.'
+            )
+
+            return redirect(
+                'packages'
+            )
 
         customer_name = request.POST.get(
             'customer_name'
@@ -103,7 +115,7 @@ def booking(request, package_id):
 
         transportation_upgrade = request.POST.get(
             'transportation_upgrade',
-            'No'
+            'None'
         )
 
         if number_of_people <= 0:
@@ -132,13 +144,17 @@ def booking(request, package_id):
 
         transportation_price = 0
 
-        if transportation_upgrade == 'Standard':
+        if transportation_upgrade == 'Tourist Van':
 
-            transportation_price = 1000
+            transportation_price = 2000
 
-        elif transportation_upgrade == 'Premium':
+        elif transportation_upgrade == 'Private Jeep/Car':
 
-            transportation_price = 2500
+            transportation_price = 5000
+
+        elif transportation_upgrade == 'Domestic Flight':
+
+            transportation_price = 10000
 
         total_transportation_price = (
             transportation_price
